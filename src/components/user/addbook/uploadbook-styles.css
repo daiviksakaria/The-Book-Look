@@ -1,0 +1,85 @@
+:root {
+  --primary: #efb6b2;
+  --secondary: #4e4e4e;
+  --error: #ff4a4a;
+}
+
+.upload-book-item input[type="text"] {
+  background-color: #f1f1f1;
+  width: 50%;
+}
+
+.upload-book-item,
+.upload-book-label {
+  /* background-color: #B2C3FF; */
+  /*background: linear-gradient(0deg, rgba(222, 229, 255, 0.71), rgba(179, 195, 255, 0.71)), #FFFFFF;*/
+  font-weight: bold;
+  color: #1643e2;
+}
+
+/*upload book styles */
+.upload-book-form {
+  margin: 30px auto 10px;
+  /* text-align: center; */
+}
+
+/* .upload-book{
+  display: block;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--primary);
+  border-radius: 50%;
+  margin: 10px auto;
+  line-height: 30px;
+  color: var(--primary);
+  font-weight: bold;
+  font-size: 24px;
+} */
+/* .upload-book:hover{
+  background: var(--primary);
+  color: white;
+} */
+.output {
+  height: 60px;
+  font-size: 0.8rem;
+}
+.error {
+  color: var(--error);
+}
+
+#buttonStyle {
+  padding: 10px;
+  color: white;
+  background-color: #1643e2;
+  border-radius: 5px;
+}
+
+#buttonStyle:hover {
+  font-weight: 600;
+}
+
+#errormsg {
+  margin-left: 10px;
+  font-family: sans-serif;
+  color: #aaa;
+}
+
+.submit-addbook-button {
+  background-color: #1643e2;
+  font-size: 18px;
+  border-radius: 20px;
+  font-weight: 600;
+  width: auto;
+}
+
+.addbook-isbn {
+  min-width: 355px;
+  max-width: 355px;
+}
+
+@media all and (max-width: 768px) {
+  .upload-book-item input[type="text"] {
+    background-color: #f1f1f1;
+    width: 80%;
+  }
+}

@@ -1,0 +1,21 @@
+.heading-policy {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: calc(2vh + 2em);
+  font-weight: 1000;
+  text-align: center;
+  color: rgb(128, 18, 231);
+}
+
+.content-policy {
+  font-family: monospace;
+  font-size: calc(1vh + 1em);
+  font-weight: 500;
+  color: rgb(63, 35, 224);
+}
+
+.subheading-policy {
+  font-family: monospace;
+  font-size: calc(1vh + 1.1em);
+  font-weight: 700;
+  color: rgb(52, 10, 241);
+}

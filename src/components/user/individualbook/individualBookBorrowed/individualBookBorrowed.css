@@ -1,0 +1,6 @@
+.borrowed-heading {
+  font-size: calc(1vh + 1em);
+  text-align: left;
+  font-weight: 700;
+  color: rgb(22, 107, 235);
+}

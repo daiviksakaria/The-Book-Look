@@ -1,0 +1,15 @@
+body {
+  background-color: #f3f3f3;
+}
+
+#logo-main {
+  font-size: 70px;
+  margin: 1vh 6vh;
+  color: #1643e2;
+}
+
+@media all and (max-width: 576px) {
+  #logo-main {
+    font-size: 60px;
+  }
+}

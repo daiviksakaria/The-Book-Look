@@ -1,0 +1,6 @@
+.no-request {
+  font-size: calc(1vh + 1em);
+  text-align: center;
+  font-weight: 700;
+  color: rgb(22, 107, 235);
+}

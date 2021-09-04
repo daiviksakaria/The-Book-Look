@@ -1,0 +1,20 @@
+.add-post-label {
+  font-weight: bold;
+  color: #1643e2;
+  font-size: calc(1rem + 0.3vw);
+}
+.addpost-box {
+  background-color: #f1f1f1;
+  min-width: 250px;
+  max-width: 700px;
+}
+.add-post-title {
+  min-width: 250px;
+  max-width: 700px;
+}
+
+.add-post-button {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}

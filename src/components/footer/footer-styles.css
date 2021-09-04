@@ -1,0 +1,59 @@
+.footer {
+  background: #1643e2;
+  color: white;
+  bottom: 0;
+}
+
+.footer-title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: calc(0.8rem + 0.6vw);
+  /* font-size: 22px; */
+
+  /*line-height: 78px;*/
+  /*letter-spacing: -0.01em;*/
+  color: white;
+  letter-spacing: 0.8px;
+}
+
+.para {
+  font-size: calc(0.7rem + 0.4vw);
+  color: #999;
+}
+.link {
+  color: #999;
+  transition: color 0.2s;
+  text-decoration: none;
+  list-style-type: none;
+  font-size: calc(0.6rem + 0.4vw);
+}
+li a:hover {
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+}
+.social-media {
+  font-size: calc(1rem + 0.7vw);
+  /* font-size: 25px; */
+}
+
+.location-icon {
+  font-size: 18px;
+}
+
+.copyright p {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media all and (max-width: 576px) {
+  .footer-link {
+    display: inline;
+  }
+  li {
+    margin-right: 8px;
+  }
+}

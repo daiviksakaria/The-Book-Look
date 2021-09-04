@@ -1,0 +1,253 @@
+import React, { Component, useState, useEffect } from "react";
+import firebase from "firebase/app";
+import Popup from "reactjs-popup";
+import { fire } from "../../../../firebase";
+import $ from "jquery";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  withRouter,
+} from "react-router-dom";
+import Imagegrid from "../../addbook/Imagegrid";
+import Modal from "../../addbook/Modal";
+import useFirestore from "../../../../hooks/useFirestore";
+import "./individualBookSoldAndBought.css";
+
+const db = fire.firestore();
+
+const IndividualBookSoldAndBought = ({ val, setProfileID, singleDoc }) => {
+  const book = JSON.parse(localStorage.getItem("book"));
+  const userID = fire.auth().currentUser.uid;
+  const [users, setUsers] = useState(null);
+  const [vendors, setVendors] = useState(null);
+
+  useEffect(() => {
+    let container = [];
+    db.collection("transactions")
+      .where("ISBN", "==", book.isbn)
+      .where(`${val}`, "==", userID)
+      .where("bookDuration", "==", null)
+      .where("status", "==", "accepted")
+      .onSnapshot((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          container.push({
+            requesteeID: data.requesteeID,
+            requesterID: data.requesterID,
+            isbn: data.ISBN,
+            requesteeName: data.requesteeName,
+            requesterName: data.requesterName,
+            copies: data.bookQuantity,
+            price: data.bookPrice,
+            requestDate: data.requestDate,
+            dueDate: data.dueDate,
+            action: data.action,
+          });
+        });
+        setUsers(container);
+      });
+
+    if (val === "requesterID") {
+      let vendorContainer = [];
+      db.collection("vendorTransactions")
+        .where("ISBN", "==", book.isbn)
+        .where(`${val}`, "==", userID)
+        .where("bookDuration", "==", null)
+        .where("status", "==", "accepted")
+        .onSnapshot((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            vendorContainer.push({
+              requesteeID: data.requesteeID,
+              requesterID: data.requesterID,
+              isbn: data.ISBN,
+              requesteeName: data.requesteeName,
+              requesterName: data.requesterName,
+              shopname: data.requesteeShopname,
+              copies: data.bookQuantity,
+              price: data.bookPrice,
+              requestDate: data.requestDate,
+              dueDate: data.dueDate,
+              action: data.action,
+              delivery: data.delivery,
+            });
+          });
+          setVendors(vendorContainer);
+        });
+    }
+  }, []);
+
+  //console.log(users, val);
+  console.log(vendors);
+
+  return (
+    <div>
+      <div className="grid-container-indibook">
+        <div className="grid-item">
+          <img
+            src={book.url}
+            className="ml-2 img-indi rounded"
+            alt={book.title}
+          />
+        </div>
+        <div className="grid-item align-self-center book-details">
+          {/* <div className="book-details mx-auto"> */}
+          <span className="book-value-title">{book.title}</span> <br></br>
+          <span className="book-label">AUTHOR:</span>
+          <span className="book-value"> {book.authors}</span>
+          <br></br>
+          <span className="book-label">CATEGORY:</span>
+          <span className="book-value"> {book.categories}</span>
+          {/* </div> */}
+        </div>
+      </div>
+      <br></br>
+      {/* <div className="grid-container-table"> */}
+      {/* <div className="col xyz"> */}
+      <div className="ml-2 table-responsive grid-container-table">
+        {users != null && users.length > 0 ? (
+          <div>
+            {val == "requesterID" ? (
+              <div>
+                <div className="bought-heading">Users:</div>
+                <br></br>
+              </div>
+            ) : (
+              ""
+            )}
+            <table className="table table-hover text-center">
+              <thead>
+                <tr>
+                  <th scope="col">Sr No</th>
+                  <th scope="col">
+                    {val === "requesteeID" ? "Buyer" : "Seller"}
+                  </th>
+                  <th scope="col">Copies</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Transaction Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((user, ind) => {
+                  //console.log(typeof owner.uid);
+                  return (
+                    <tr>
+                      <td>{ind + 1}</td>
+                      <td
+                        onClick={() => {
+                          if (val === "requesteeID") {
+                            setProfileID(user.requesterID);
+                          } else {
+                            setProfileID(user.requesteeID);
+                          }
+                        }}
+                      >
+                        <Link to="/homepage/profile">
+                          {val === "requesteeID"
+                            ? user.requesterName
+                            : user.requesteeName}
+                        </Link>
+                      </td>
+                      <td>{user.copies}</td>
+                      <td>{user.price}</td>
+                      <td>{user.requestDate}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          ""
+        )}
+        {val === "requesterID" && vendors != null && vendors.length > 0 ? (
+          <div>
+            <div className="bought-heading">Vendors:</div>
+            <br></br>
+            <table className="table table-hover text-center">
+              <thead>
+                <tr>
+                  <th scope="col">Sr No</th>
+                  <th scope="col">Seller</th>
+                  <th scope="col">Copies</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Transaction Date</th>
+                  <th scope="col">Delivery</th>
+                </tr>
+              </thead>
+              <tbody>
+                {vendors
+                  ? vendors.map((vendor, ind) => {
+                      //console.log(typeof owner.uid);
+                      return (
+                        <tr>
+                          <td>{ind + 1}</td>
+                          <td
+                            onClick={() => {
+                              if (val === "requesteeID") {
+                                setProfileID(vendor.requesterID);
+                              } else {
+                                setProfileID(vendor.requesteeID);
+                              }
+                            }}
+                          >
+                            <Link to="/homepage/profile">
+                              {vendor.shopname}
+                            </Link>
+                          </td>
+                          <td>{vendor.copies}</td>
+                          <td>{vendor.price}</td>
+                          <td>{vendor.requestDate}</td>
+                          <td>
+                            {vendor.delivery ? "Available" : "Not available"}
+                          </td>
+                        </tr>
+                      );
+                    })
+                  : ""}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
+      <br></br>
+    </div>
+
+    /* <Popup
+          trigger={
+            <button type="submit" class="btn btn-primary">
+              Request book
+            </button>
+          }
+          position="right center"
+        >
+          <div>
+            <img src={book.url} />
+            <div>{book.title}</div>
+            <div>Owner : {owner.name}</div>
+            <form>
+              {owner.price === "" ? (
+                <div>
+                  <label for="duration">Time duration (in days)</label>
+                  <input type="text" name="duration" id="duration" />
+                </div>
+              ) : (
+                <div>
+                  price:{owner.price}
+                  <input type="text" name="quantity" id="quantity" placeholder="Quantity" />
+                </div>
+              )}
+              <button type="submit" class="btn btn-secondary">
+                Submit
+              </button>
+            </form>
+          </div>
+        </Popup> */
+  );
+};
+
+export default IndividualBookSoldAndBought;
