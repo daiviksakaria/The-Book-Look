@@ -27,11 +27,11 @@ In a few minutes the development server will start and you would be able to see 
 # Sample data for testing
 
 # User login credentials
-Email: axil3108@gmail.com<br/>
-Password: zxcvbnm
+Email: daiviksakaria@gmail.com<br/>
+Password: 12345678
 
-Email: 201701220@daiict.ac.in<br/>
-Password: zxcvbnm
+Email: 201701115@daiict.ac.in<br/>
+Password: 12345678
 
 # Vendor login credentials
 Email: btechproj2021@gmail.com<br/>
